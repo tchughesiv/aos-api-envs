@@ -30,7 +30,7 @@ RUN yum clean all && \
     yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical --setopt=tsflags=nodocs && \
 ### help markdown to man conversion
 ### Add your package needs to this installation line
-    yum -y install --setopt=tsflags=nodocs golang-github-cpuguy83-go-md2man && \
+    yum -y install --setopt=tsflags=nodocs golang-github-cpuguy83-go-md2man iputils bind-utils && \
     go-md2man -in /tmp/help.md -out /help.1 && yum -y remove golang-github-cpuguy83-go-md2man && \
 ### EPEL needs
 #    curl -o epel-release-latest-7.noarch.rpm -SL https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
@@ -55,6 +55,7 @@ RUN chmod -R ug+x ${APP_ROOT}/bin /tmp/user_setup && \
 # RUN chown -R ${USER_UID}:0 /run/httpd /etc/httpd /var/log/httpd && chmod -R g+rw /run/httpd /etc/httpd /var/log
 
 ### Containers should NOT run as root as a best practice
+EXPOSE 8081
 USER ${USER_UID}
 WORKDIR ${APP_ROOT}
 CMD run

@@ -6,10 +6,9 @@
 #curl -H "${TOKEN_HEADER}" --cacert ${CA_CERT} ${KAPI}/namespaces/${OPENSHIFT_BUILD_NAMESPACE}/pods/${HOSTNAME} -O
 # export MY_CONTAINER_ID=$(cat ${HOSTNAME} | jq -r '.status.containerStatuses[0].containerID')
 # export MY_POD_UID=$(cat ${HOSTNAME} | jq -r '.metadata.uid')
-# rm -f ${HOSTNAME}
 # echo MY_POD_UID=${MY_POD_UID}
-
 # echo MY_DOCKER_CONTAINER_ID=docker://${MY_CONTAINER_ID}
+
 export MY_CONTAINER_ID=$(basename "$(cat /proc/1/cgroup)" | sed 's/.scope$//g' | tr -d "[:punct:]" | sed 's/^docker/docker:\/\//g')
 echo MY_CONTAINER_ID=${MY_CONTAINER_ID}
 echo MY_POD_IP=${MY_POD_IP}
